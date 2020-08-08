@@ -48,8 +48,8 @@ OTHER DEALINGS IN THE SOFTWARE.
                  KeyUp="OnTextBoxKeyUp"
                  GotFocus="PART_EDITFIELD_GotFocus"
                  TextChanged="OnTextBoxChanged" />
-        <TextBlock Margin="1"
-                   Padding="4,2"
+        <TextBlock Margin="{Binding Path=Margin, ElementName=PART_EDITFIELD}"
+                   Padding="{Binding Path=Padding, ElementName=PART_EDITFIELD}"
                    Focusable="False"
                    IsHitTestVisible="False"
                    Text="{Binding Path=WatermarkText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
@@ -58,7 +58,8 @@ OTHER DEALINGS IN THE SOFTWARE.
                    FontSize="{Binding Path=FontSize, ElementName=PART_EDITFIELD}"
                    FontFamily="{Binding Path=FontFamily, ElementName=PART_EDITFIELD}"
                    FontStyle="{Binding Path=WatermarkFontStyle, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                   FontWeight="{Binding Path=WatermarkFontWeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                   FontWeight="{Binding Path=WatermarkFontWeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                   VerticalAlignment="Center">
             
             <TextBlock.Visibility>
                 
@@ -85,11 +86,19 @@ OTHER DEALINGS IN THE SOFTWARE.
                Width="{Binding Path=ResultsWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                PreviewMouseDown="Popup_PreviewMouseButton"
                PreviewMouseUp="Popup_PreviewMouseButton">
-
-            <ListView Name="lstSearchItems"
+            <Border CornerRadius="4">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="1.2" Opacity="0.8" Color="{DynamicResource AccentColor}" RenderingBias="Quality" />
+                </Border.Effect>
+                <Border BorderThickness="1"
+                            Background="{DynamicResource WindowBackground}"
+                            BorderBrush="{DynamicResource WindowBorderActive}">
+                    <ListView Name="lstSearchItems"
                       VirtualizingStackPanel.IsVirtualizing="True"
                       ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=Items}"
                       PreviewKeyDown="lstSearchItems_PreviewKeyDown" />
+                </Border>
+            </Border>
 
         </Popup>
 
