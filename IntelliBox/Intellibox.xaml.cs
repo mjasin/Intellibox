@@ -202,6 +202,12 @@ namespace FeserWard.Controls {
             DependencyProperty.Register("WatermarkFontStyle", typeof(FontStyle), typeof(Intellibox), new UIPropertyMetadata(FontStyles.Italic));
 
         /// <summary>
+        /// Identifies the <see cref="WatermarkFontSize"/> Dependancy Property.
+        /// </summary>
+        public static readonly DependencyProperty WatermarkFontSizeProperty =
+            DependencyProperty.Register("WatermarkFontSize", typeof(int), typeof(Intellibox));
+
+        /// <summary>
         /// Identifies the <see cref="TimeBeforeWaitNotification"/> Dependancy Property. Default is 125 milliseconds.
         /// </summary>
         public static readonly DependencyProperty TimeBeforeWaitNotificationProperty =
@@ -727,6 +733,22 @@ namespace FeserWard.Controls {
             }
         }
 
+
+        /// <summary>
+        /// Sets the FontSize of the <see cref="WatermarkText"/> when it is displayed.
+        /// </summary>
+        public int WatermarkFontSize
+        {
+            get
+            {
+                return (int)GetValue(WatermarkFontSizeProperty);
+            }
+            set
+            {
+                SetValue(WatermarkFontSizeProperty, value);
+            }
+        }
+
         /// <summary>
         /// Sets the <see cref="FontWeight"/> of the <see cref="WatermarkText"/> when it is displayed.
         /// </summary>
@@ -1107,20 +1129,25 @@ namespace FeserWard.Controls {
         }
 
         private void OnRowColorizerChanged() {
-            if (IsInitialized) {
-                var bind = new Binding() {
+            if (IsInitialized)
+            {
+                var bind = new Binding()
+                {
                     RelativeSource = RelativeSource.Self,
                     Converter = RowColorizer
                 };
 
-                var style = new Style(typeof(ListViewItem));
-                style.Setters.Add(new Setter(ListViewItem.BackgroundProperty, bind));
+                var style = new Style(typeof(ListViewItem))
+                {
+                    BasedOn = Application.Current.TryFindResource(typeof(ListViewItem)) as Style
+                };
+                style.Setters.Add(new Setter(BackgroundProperty, bind));
 
-                var settSingleClick = new EventSetter(ListViewItem.PreviewMouseLeftButtonUpEvent, new MouseButtonEventHandler(OnListItemMouseSingleClick));
+                var settSingleClick = new EventSetter(PreviewMouseLeftButtonUpEvent, new MouseButtonEventHandler(OnListItemMouseSingleClick));
                 style.Setters.Add(settSingleClick);
-                var settDoubleClick = new EventSetter(ListViewItem.MouseDoubleClickEvent, new MouseButtonEventHandler(OnListItemMouseDoubleClick));
+                var settDoubleClick = new EventSetter(MouseDoubleClickEvent, new MouseButtonEventHandler(OnListItemMouseDoubleClick));
                 style.Setters.Add(settDoubleClick);
-                var settKeyDown = new EventSetter(ListViewItem.KeyDownEvent, new KeyEventHandler(OnListItemKeyDown));
+                var settKeyDown = new EventSetter(KeyDownEvent, new KeyEventHandler(OnListItemKeyDown));
                 style.Setters.Add(settKeyDown);
 
                 Resources[typeof(ListViewItem)] = style;

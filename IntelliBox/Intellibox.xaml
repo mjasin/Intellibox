@@ -55,7 +55,7 @@ OTHER DEALINGS IN THE SOFTWARE.
                    Text="{Binding Path=WatermarkText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                    Foreground="{Binding Path=WatermarkForeground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                    Background="{Binding Path=WatermarkBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                   FontSize="{Binding Path=FontSize, ElementName=PART_EDITFIELD}"
+                   FontSize="{Binding Path=WatermarkFontSize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                    FontFamily="{Binding Path=FontFamily, ElementName=PART_EDITFIELD}"
                    FontStyle="{Binding Path=WatermarkFontStyle, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                    FontWeight="{Binding Path=WatermarkFontWeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
